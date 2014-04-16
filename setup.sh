@@ -12,7 +12,6 @@ then
 		echo " => There is symbolic link for the vimfile"
 	else 
 		echo " => creating symbolic link"
-
 		ln -s $config $slfile    
 	fi
 
