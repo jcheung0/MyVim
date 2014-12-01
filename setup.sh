@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if "$(type -p "git")"; then 
+    echo "git is installed"
+fi
+
 export config="$(pwd)/vimrc"
 export slfile=~/.vimrc  
 
