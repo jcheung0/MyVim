@@ -8,12 +8,14 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'wincent/Command-T'
-" Plugin 'Valloric/YouCompleteMe'
-Plugin 'nosami/Omnisharp'
+Plugin 'sickill/vim-monokai'
+Plugin 'Valloric/YouCompleteMe'
+"Plugin 'nosami/Omnisharp'
 Plugin 'tpope/vim-dispatch'
 Plugin 'majutsushi/tagbar'
 Plugin 'kien/ctrlp.vim'
-Plugin 'faith/vim-go'
+Plugin 'fatih/vim-go'
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
 let mapleader=","
 
 filetype plugin indent on  
@@ -72,11 +74,11 @@ function SetupSyntastic()
     let g:syntastic_python_checkers=['pylint']
 endfunction
 au BufNewFile,BufRead *.gradle setf groovy
-
+au BufNewFile,BufRead Vagrantfile setf ruby
 :call SetupSyntastic()
 :call SetupMap()
 :call ConfigureTabs()
 syntax on
 colorscheme default
-let g:solarized_termcolors=256
+"let g:solarized_termcolors=256
 

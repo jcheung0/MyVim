@@ -7,6 +7,8 @@ fi
 export config="$(pwd)/vimrc"
 export slfile=~/.vimrc  
 
+export eclimrc=~/.eclimrc
+
 if [ -f $config ];
 then 
 	echo "=> File $config does exist"
@@ -21,4 +23,12 @@ then
 
 else 
 	echo "File $config does not exist"  
-fi  
+fi 
+
+if [ -f $eclimrc ];
+then
+    if [ -L $eclimrc ];
+    then
+        ln -s "$(pwd)/eclimrc" $eclimrc 
+    fi
+fi

@@ -40,6 +40,7 @@ setup_alias(){
     alias swift="xcrun swift"
     # You can use whatever you want as an alias, like for Mondays:
     alias FUCK='fuck'
+    alias exer='exercism'
 }
 
 setup_alias
