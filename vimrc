@@ -16,6 +16,8 @@ Plugin 'majutsushi/tagbar'
 Plugin 'kien/ctrlp.vim'
 Plugin 'fatih/vim-go'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
+Plugin 'dart-lang/dart-vim-plugin'
+
 let mapleader=","
 
 filetype plugin indent on  
