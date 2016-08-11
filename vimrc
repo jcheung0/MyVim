@@ -16,9 +16,15 @@ Plugin 'majutsushi/tagbar'
 Plugin 'kien/ctrlp.vim'
 Plugin 'fatih/vim-go'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
+Plugin 'keith/swift.vim'
+Plugin 'leafgarland/typescript-vim'
 Plugin 'dart-lang/dart-vim-plugin'
-
+Plugin 'Quramy/tsuquyomi'
+Plugin 'Shougo/vimproc.vim',{'do': 'make'}
+Plugin 'OmniSharp/omnisharp-vim'
 let mapleader=","
+"let g:jedi#force_py_version = 2
+let g:jedi#auto_initialization = 0
 
 filetype plugin indent on  
 set wildmenu
@@ -62,7 +68,7 @@ function! SetupMap()
 	:imap ( ()<left> 
 	:imap [ []<left> 
 	:imap { {}<left>
-    :nnoremap <C-p>     :tabprevious<CR>
+    :nnoremap <C-m>     :tabprevious<CR>
     :nnoremap <C-n>     :tabnext<CR>
     :nnoremap <C-t>     :tabnew<CR>     
     :nnoremap <C-o>     :edit<CR> 
