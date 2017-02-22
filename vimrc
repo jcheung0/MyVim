@@ -22,6 +22,9 @@ Plugin 'dart-lang/dart-vim-plugin'
 Plugin 'Quramy/tsuquyomi'
 Plugin 'Shougo/vimproc.vim',{'do': 'make'}
 Plugin 'OmniSharp/omnisharp-vim'
+"Plugin 'elmcast/elm-vim'
+"Plugin 'rust-lang/rust.vim'
+
 let mapleader=","
 "let g:jedi#force_py_version = 2
 let g:jedi#auto_initialization = 0
