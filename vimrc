@@ -7,13 +7,14 @@ Plugin 'gmarik/vundle'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'wincent/Command-T'
+"Plugin 'wincent/Command-T'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'sickill/vim-monokai'
 Plugin 'Valloric/YouCompleteMe'
 "Plugin 'nosami/Omnisharp'
 Plugin 'tpope/vim-dispatch'
 Plugin 'majutsushi/tagbar'
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
 Plugin 'fatih/vim-go'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'keith/swift.vim'
@@ -24,6 +25,7 @@ Plugin 'Shougo/vimproc.vim',{'do': 'make'}
 Plugin 'OmniSharp/omnisharp-vim'
 "Plugin 'elmcast/elm-vim'
 "Plugin 'rust-lang/rust.vim'
+Plugin 'HerringtonDarkholme/yats.vim'
 
 let mapleader=","
 "let g:jedi#force_py_version = 2
@@ -58,7 +60,7 @@ set mouse=a
 set backspace=indent,eol,start
 set completeopt=longest,menuone
 set background=dark
-
+set termguicolors
 
 function! ConfigureTabs()
   set switchbuf=usetab
@@ -93,3 +95,10 @@ syntax on
 colorscheme default
 "let g:solarized_termcolors=256
 
+if !exists( "g:ycm_semantic_triggers")
+    let g:ycm_semantic_trigger = {}
+endif
+let g:ctrlp_custom_ignore = 'node_modules\|DS_store\|git'
+let g:ctrlp_match_window='results:100'
+let g:ctrlp_max_height='40'
+"let g:ycm_semantic_triggers['typescript'] = ['.']
