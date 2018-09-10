@@ -1,66 +1,81 @@
 set nocompatible 
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Plugin 'gmarik/vundle'
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-"Plugin 'wincent/Command-T'
+"Plugin 'scrooloose/syntastic'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'sickill/vim-monokai'
 Plugin 'Valloric/YouCompleteMe'
-"Plugin 'nosami/Omnisharp'
 Plugin 'tpope/vim-dispatch'
 Plugin 'majutsushi/tagbar'
-"Plugin 'kien/ctrlp.vim'
 Plugin 'fatih/vim-go'
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
-Plugin 'keith/swift.vim'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'dart-lang/dart-vim-plugin'
-Plugin 'Quramy/tsuquyomi'
-Plugin 'Shougo/vimproc.vim',{'do': 'make'}
-Plugin 'OmniSharp/omnisharp-vim'
-"Plugin 'elmcast/elm-vim'
-"Plugin 'rust-lang/rust.vim'
-Plugin 'HerringtonDarkholme/yats.vim'
+"Plugin 'nsf/gocode', {'rtp': 'vim/'}
+
+
+
+Plugin 'sheerun/vim-polyglot'
+
+Plugin 'ryanoasis/vim-devicons'
+
+call vundle#end()
 
 let mapleader=","
 "let g:jedi#force_py_version = 2
 let g:jedi#auto_initialization = 0
 
+:set filetype=xml
+
 filetype plugin indent on  
+
+"gg=G
 set wildmenu
 set foldmethod=indent
 set foldnestmax=10
 set nofoldenable
 set foldlevel=1
 set nu
-set mouse=a
 set scrolloff=3
 set tabstop=4 
 set shiftwidth=4
 set smartindent
+set smarttab
 set expandtab
 set autoindent
 set ruler
 set nobackup 
 set nowritebackup
 set noswapfile
-set list
+"set list
 set directory=~/tmp/
 set showmatch
 set smartcase
 set hlsearch
 set incsearch
 set wildignore=*.swp,*.bak,*.pyc,*.class
-set mouse=a
+set mouse+=a
 set backspace=indent,eol,start
 set completeopt=longest,menuone
 set background=dark
-set termguicolors
+set clipboard=unnamed
+if( has("termguicolors"))
+
+    set termguicolors
+endif
+
+set laststatus=2
+
+set cursorline
+
+
+let base16colorspace=256
+let g:elite_mode=1
+
+let g:SuperTabDefaultCompletionType="<C-X><C-O>"
+
 
 function! ConfigureTabs()
   set switchbuf=usetab
@@ -92,6 +107,7 @@ au BufNewFile,BufRead Vagrantfile setf ruby
 :call SetupMap()
 :call ConfigureTabs()
 syntax on
+set encoding=utf-8
 colorscheme default
 "let g:solarized_termcolors=256
 
@@ -102,3 +118,5 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_store\|git'
 let g:ctrlp_match_window='results:100'
 let g:ctrlp_max_height='40'
 "let g:ycm_semantic_triggers['typescript'] = ['.']
+if has("gui_vimr")
+end
