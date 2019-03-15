@@ -4,12 +4,14 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'davidhalter/jedi-vim'
+Plugin 'davidhalter/jedi-vim', {'for': 'python'}
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'rakr/vim-one'
-Plugin 'dracula/vim'
+Plugin 'Yggdroot/LeaderF'
+
+"Plugin 'dracula/vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 "Plugin 'scrooloose/syntastic'
@@ -18,6 +20,12 @@ Plugin 'sickill/vim-monokai'
 Plugin 'tpope/vim-dispatch'
 Plugin 'majutsushi/tagbar'
 Plugin 'fatih/vim-go'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'heavenshell/vim-tslint'
+Plugin 'Quramy/tsuquyomi'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'w0rp/ale'
+
 "Plugin 'nsf/gocode', {'rtp': 'vim/'}
 
 
@@ -27,6 +35,7 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'ryanoasis/vim-devicons'
 
 call vundle#end()
+
 
 let mapleader=","
 "let g:jedi#force_py_version = 2
@@ -46,6 +55,7 @@ set nu
 set scrolloff=3
 set tabstop=4 
 set shiftwidth=4
+set textwidth=140
 set smartindent
 set smarttab
 set expandtab
@@ -87,7 +97,7 @@ set laststatus=2
 set cursorline
 
 
-let base16colorspace=256
+"let base16colorspace=256
 let g:elite_mode=1
 
 let g:SuperTabDefaultCompletionType="<C-X><C-O>"
@@ -96,7 +106,7 @@ let g:SuperTabDefaultCompletionType="<C-X><C-O>"
 function! ConfigureTabs()
   set switchbuf=usetab
 endfunction
-let g:airline_theme='one'
+"let g:airline_theme='one'
 au FileType ruby set tw=80 ts=2
 au BufRead,BufNewFile *.tt set filetype=html
 
@@ -108,31 +118,90 @@ function! SetupMap()
     :nnoremap <C-n>     :tabnext<CR>
     :nnoremap <C-t>     :tabnew<CR>     
     :nnoremap <C-o>     :edit<CR> 
-    :nnoremap <C-S-f>   :CtrlP<CR>
+    ":nnoremap <C-S-f>   :CtrlP<CR>
     :nnoremap <C-S-d>   :NERDTree<CR>
-  :nmap <F8> :TagbarToggle<CR>
+    :nmap <F8> :TagbarToggle<CR>
+    inoremap <Nul> <C-n>
+
 endfunction
 
 function SetupSyntastic()
     let g:syntastic_enable_perl_checker=1
     let g:syntastic_python_checkers=['pylint']
 endfunction
+
+if exists("g:ctrlp_user_command")
+  unlet g:ctrlp_user_command
+endif
+
+
+set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.ico
+set wildignore+=*.pdf,*.psd
+set wildignore+=**/node_modules/*,**/bower_components/*]
+
+
 au BufNewFile,BufRead *.gradle setf groovy
 au BufNewFile,BufRead Vagrantfile setf ruby
+
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+
 :call SetupSyntastic()
 :call SetupMap()
 :call ConfigureTabs()
 syntax on
 set encoding=utf-8
 set t_Co=256
-colorscheme dracula 
+colorscheme default 
 "let g:solarized_termcolors=256
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 if !exists( "g:ycm_semantic_triggers")
     let g:ycm_semantic_trigger = {}
 endif
-let g:ctrlp_custom_ignore = 'node_modules\|DS_store\|git'
-let g:ctrlp_match_window='results:10'
-let g:ctrlp_max_height='10'
+
+if has("gui_running")
+  "mouse visual block (ala MS Word)
+  nmap <A-LeftMouse> ms<LeftMouse><C-v>`so
+  imap <A-LeftMouse> <Esc><C-v>`^ms<Esc>gi<LeftMouse><C-o><C-v>`so
+  vmap <A-LeftDrag> <LeftDrag>
+  vmap <A-LeftMouse> <C-v><LeftMouse>msgv`s
+  vmap <S-LeftMouse> v<LeftMouse>msgv`s
+  set mouse=ra
+else
+  "paste toggle
+  nmap <F7> :set paste! paste?<CR>
+  imap <F7> <C-o>:set paste!<CR>
+  vmap <F7> <Esc>:set paste!<CR>gv
+  "xterm mouse with middleclick paste
+  nnoremap <MiddleMouse> i<MiddleMouse>
+  vnoremap <MiddleMouse> s<MiddleMouse>
+  set pastetoggle=<F7> mouse=rnv
+  "choose either one
+  set ttymouse=xterm
+  "set ttymouse=xterm2
+endif
+
+let g:ctrlp_custom_ignore = {
+    \   'dir': 'node_modules\|DS_store\|\.git$\|build\|dist',
+    \   'file': '\v\.(exe|dll|lib)$'
+    \}
+let g:ctrlp_match_window='results:25'
+let g:ctrlp_max_height='25'
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+let g:ctrlp_clear_cache_on_exit=0
+let g:ctrlp_working_path_mode = 'ra'
+
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
 if has("gui_vimr")
 end
+
+
+ augroup vimrc
+
+   autocmd!
+
+   autocmd BufWinEnter,Syntax * syn sync minlines=500 maxlines=500
+
+ augroup END
