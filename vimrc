@@ -1,51 +1,78 @@
 set nocompatible 
 filetype off
+ 
 
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'davidhalter/jedi-vim', {'for': 'python'}
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'rakr/vim-one'
-Plugin 'Yggdroot/LeaderF'
+call plug#begin('~/.vim/plugged')
+ Plug 'davidhalter/jedi-vim', {'for': 'python'}
+ Plug 'airblade/vim-gitgutter'
+ 
+ "air line plugins
+ Plug 'vim-airline/vim-airline'
+ Plug 'vim-airline/vim-airline-themes'
+ 
+ " fuzzy finder 
+ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+ Plug 'junegunn/fzf.vim'
 
-"Plugin 'dracula/vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
-"Plugin 'scrooloose/syntastic'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'sickill/vim-monokai'
-Plugin 'tpope/vim-dispatch'
-Plugin 'majutsushi/tagbar'
-Plugin 'fatih/vim-go'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'heavenshell/vim-tslint'
-Plugin 'Quramy/tsuquyomi'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'w0rp/ale'
+ Plug 'ncm2/ncm2'
 
-"Plugin 'nsf/gocode', {'rtp': 'vim/'}
+ Plug 'tpope/vim-fugitive'
+ 
+ " Directory Plugin
+ Plug 'scrooloose/nerdtree'
 
 
+ " theme 
+ Plug 'sickill/vim-monokai'
+ Plug 'ErichDonGubler/vim-sublime-monokai' 
+ Plug 'rakr/vim-one'
 
-Plugin 'sheerun/vim-polyglot'
+ Plug 'tpope/vim-dispatch'
+ Plug 'majutsushi/tagbar'
+ 
+ Plug 'terryma/vim-multiple-cursors'
+ Plug 'heavenshell/vim-tslint'
+ Plug 'Quramy/tsuquyomi'
 
-Plugin 'ryanoasis/vim-devicons'
+ Plug 'w0rp/ale'
+ 
+ "Language support
+ Plug 'sheerun/vim-polyglot'
+ Plug 'fatih/vim-go'
 
-call vundle#end()
+ 
+ "Plug 'ryanoasis/vim-devicons'
+
+ if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+ else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+ endif
+
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'Shougo/denite.nvim'
+Plug 'Shougo/deoplete-clangx'
+Plug 'Shougo/neco-syntax'
+Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'kaicataldo/material.vim'
 
 
-let mapleader=","
-"let g:jedi#force_py_version = 2
-let g:jedi#auto_initialization = 0
+call plug#end()
 
-:set filetype=xml
-
-filetype plugin indent on  
-
-"gg=G
+let g:deoplete#enable_at_startup = 1
+ 
+ let mapleader=","
+ "let g:jedi#force_py_version = 2
+ let g:jedi#auto_initialization = 0
+ 
+ :set filetype=xml
+ 
+ filetype plugin indent on  
+ 
+ "gg=G
 set wildmenu
 set foldmethod=indent
 set foldnestmax=10
@@ -76,8 +103,9 @@ set backspace=indent,eol,start
 set completeopt=longest,menuone
 set background=dark
 set clipboard=unnamed
-
-
+set rtp+=/usr/local/opt/fzf
+ 
+ 
 if (empty($TMUX))
   if (has("nvim"))
   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -102,37 +130,35 @@ let g:elite_mode=1
 
 let g:SuperTabDefaultCompletionType="<C-X><C-O>"
 
-
+let g:deoplete#file#enable_buffer_path = 1
 function! ConfigureTabs()
   set switchbuf=usetab
 endfunction
-"let g:airline_theme='one'
 au FileType ruby set tw=80 ts=2
 au BufRead,BufNewFile *.tt set filetype=html
 
 function! SetupMap()
 	:imap ( ()<left> 
-	:imap [ []<left> 
-	:imap { {}<left>
-    :nnoremap <C-m>     :tabprevious<CR>
-    :nnoremap <C-n>     :tabnext<CR>
-    :nnoremap <C-t>     :tabnew<CR>     
-    :nnoremap <C-o>     :edit<CR> 
+    :imap [ []<left> 
+    :imap { {}<left>
+    ":nnoremap <C-q> :tabprevious<CR>
+    ":nnoremap <C-w> :tabnext<CR>
+    :nnoremap <C-t> :tabnew<CR>     
+    :nnoremap <C-o> :edit<CR> 
     ":nnoremap <C-S-f>   :CtrlP<CR>
     :nnoremap <C-S-d>   :NERDTree<CR>
     :nmap <F8> :TagbarToggle<CR>
+    nnoremap <C-p> :Files<Cr>
     inoremap <Nul> <C-n>
 
 endfunction
 
-function SetupSyntastic()
-    let g:syntastic_enable_perl_checker=1
-    let g:syntastic_python_checkers=['pylint']
-endfunction
+let g:ale_completion_enabled = 1
 
-if exists("g:ctrlp_user_command")
-  unlet g:ctrlp_user_command
-endif
+"function SetupSyntastic()
+"    let g:syntastic_enable_perl_checker=1
+"    let g:syntastic_python_checkers=['pylint']
+"endfunction
 
 
 set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.ico
@@ -145,14 +171,12 @@ au BufNewFile,BufRead Vagrantfile setf ruby
 
 let g:typescript_compiler_binary = 'tsc'
 let g:typescript_compiler_options = ''
-
-:call SetupSyntastic()
 :call SetupMap()
 :call ConfigureTabs()
 syntax on
-set encoding=utf-8
+set encoding=UTF-8
 set t_Co=256
-colorscheme default 
+colorscheme material 
 "let g:solarized_termcolors=256
 if !exists( "g:ycm_semantic_triggers")
     let g:ycm_semantic_trigger = {}
@@ -176,32 +200,28 @@ else
   vnoremap <MiddleMouse> s<MiddleMouse>
   set pastetoggle=<F7> mouse=rnv
   "choose either one
-  set ttymouse=xterm
+  "set ttymouse=xterm
   "set ttymouse=xterm2
 endif
-
-let g:ctrlp_custom_ignore = {
-    \   'dir': 'node_modules\|DS_store\|\.git$\|build\|dist',
-    \   'file': '\v\.(exe|dll|lib)$'
-    \}
-let g:ctrlp_match_window='results:25'
-let g:ctrlp_max_height='25'
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-let g:ctrlp_clear_cache_on_exit=0
-let g:ctrlp_working_path_mode = 'ra'
-
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
+ 
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
 
-if has("gui_vimr")
-end
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
-
- augroup vimrc
-
-   autocmd!
-
-   autocmd BufWinEnter,Syntax * syn sync minlines=500 maxlines=500
-
- augroup END
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif 
+ 
+  augroup vimrc
+ 
+    autocmd!
+ 
+    autocmd BufWinEnter,Syntax * syn sync minlines=500 maxlines=500
+ 
+  augroup END
