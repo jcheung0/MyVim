@@ -31,16 +31,24 @@ call plug#begin('~/.vim/plugged')
  Plug 'majutsushi/tagbar'
  
  Plug 'terryma/vim-multiple-cursors'
- Plug 'heavenshell/vim-tslint'
+ "Plug 'heavenshell/vim-tslint'
  Plug 'Quramy/tsuquyomi'
 
  Plug 'w0rp/ale'
- 
+ Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+Plug 'neomake/neomake'
+  
  "Language support
  Plug 'sheerun/vim-polyglot'
  Plug 'fatih/vim-go'
 
- 
+ Plug 'mattn/emmet-vim'
+
+
  "Plug 'ryanoasis/vim-devicons'
 
  if has('nvim')
@@ -50,6 +58,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
  endif
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'OmniSharp/omnisharp-vim'
 
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
@@ -58,8 +68,8 @@ Plug 'Shougo/deoplete-clangx'
 Plug 'Shougo/neco-syntax'
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'kaicataldo/material.vim'
-
-
+Plug 'brooth/far.vim'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 let g:deoplete#enable_at_startup = 1
@@ -150,7 +160,10 @@ function! SetupMap()
     :nmap <F8> :TagbarToggle<CR>
     nnoremap <C-p> :Files<Cr>
     inoremap <Nul> <C-n>
-
+    noremap <Up> <NOP>
+    noremap <Down> <NOP>
+    noremap <Left> <NOP>
+    noremap <Right> <NOP>
 endfunction
 
 let g:ale_completion_enabled = 1
@@ -224,4 +237,25 @@ endif
  
     autocmd BufWinEnter,Syntax * syn sync minlines=500 maxlines=500
  
-  augroup END
+augroup END
+
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+
+let g:user_emmet_install_global = 0
+autocmd FileType xml,html,css EmmetInstall
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+let g:user_emmet_leader_key=','
+
+
+set hidden
+
