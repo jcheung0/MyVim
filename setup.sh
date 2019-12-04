@@ -6,7 +6,7 @@ fi
 
 export config="$(pwd)/vimrc"
 export slfile=~/.vimrc  
-
+export tmuxconf="$(pwd)/tmux.conf"
 export eclimrc=~/.eclimrc
 
 if [ -f $config ];

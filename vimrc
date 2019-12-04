@@ -23,9 +23,9 @@ call plug#begin('~/.vim/plugged')
 
 
  " theme 
- Plug 'sickill/vim-monokai'
- Plug 'ErichDonGubler/vim-sublime-monokai' 
- Plug 'rakr/vim-one'
+ "Plug 'sickill/vim-monokai'
+ "Plug 'ErichDonGubler/vim-sublime-monokai' 
+ "Plug 'rakr/vim-one'
 
  Plug 'tpope/vim-dispatch'
  Plug 'majutsushi/tagbar'
@@ -34,7 +34,7 @@ call plug#begin('~/.vim/plugged')
  "Plug 'heavenshell/vim-tslint'
  Plug 'Quramy/tsuquyomi'
 
- Plug 'w0rp/ale'
+ "Plug 'w0rp/ale'
  Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -44,7 +44,7 @@ Plug 'neomake/neomake'
   
  "Language support
  Plug 'sheerun/vim-polyglot'
- Plug 'fatih/vim-go'
+" Plug 'fatih/vim-go'
 
  Plug 'mattn/emmet-vim'
 
@@ -62,7 +62,9 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'OmniSharp/omnisharp-vim'
 
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+"Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+"Plug 'mhartington/deoplete-typescript', { 'do': 'npm install -g typescript', 'for': 'typescript' }
+
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/deoplete-clangx'
 Plug 'Shougo/neco-syntax'
@@ -95,13 +97,13 @@ set shiftwidth=4
 set textwidth=140
 set smartindent
 set smarttab
-set expandtab
+"set expandtab
 set autoindent
 set ruler
 set nobackup 
 set nowritebackup
 set noswapfile
-"set list
+set list
 set directory=~/tmp/
 set showmatch
 set smartcase
@@ -114,7 +116,7 @@ set completeopt=longest,menuone
 set background=dark
 set clipboard=unnamed
 set rtp+=/usr/local/opt/fzf
- 
+set noexpandtab 
  
 if (empty($TMUX))
   if (has("nvim"))
@@ -255,6 +257,11 @@ let g:user_emmet_install_global = 0
 autocmd FileType xml,html,css EmmetInstall
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 let g:user_emmet_leader_key=','
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+nnoremap \ :Ag<SPACE>
+
 
 
 set hidden
