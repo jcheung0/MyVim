@@ -6,8 +6,11 @@ call plug#begin('~/.vim/plugged')
  "Plug 'davidhalter/jedi-vim', {'for': 'python'}
  Plug 'airblade/vim-gitgutter'
  Plug 'vhdirk/vim-cmake'
-" Plug 'Valloric/YouCompleteMe'
- 
+ Plug 'evanleck/vim-svelte', {'branch': 'main'} 
+ "Plug 'ycm-core/YouCompleteMe'
+ Plug 'OmniSharp/omnisharp-vim' 
+ Plug 'tpope/vim-dadbod'
+ Plug 'kristijanhusak/vim-dadbod-ui'
  "air line plugins
  Plug 'vim-airline/vim-airline'
  Plug 'vim-airline/vim-airline-themes'
@@ -351,6 +354,9 @@ augroup end
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gr <Plug>(coc-references)
+
 
 " Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)
@@ -373,6 +379,8 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+let g:OmniSharp_server_stdio = 1
+"let g:OmniSharp_popup = 0
 
 " Using CocList
 " Show all diagnostics
