@@ -1,0 +1,40 @@
+[
+ {
+  "directory": "/Users/jcheung/Dev/work/level-9000/c-project/simple-game-c",
+  "arguments": [
+   "cc",
+   "-Iinclude",
+   "-I/usr/local/Cellar/raylib/3.0.0/include",
+   "-I/usr/local/include",
+   "-L/usr/local/lib -lcollectc",
+   "-L/usr/local/Cellar/raylib/3.0.0/lib -lraylib",
+   "-MMD",
+   "-MP",
+   "-Wall",
+   "-c",
+   "src/game_object.c",
+   "-o",
+   "obj/game_object.o"
+  ],
+  "file": "src/game_object.c"
+ },
+ {
+  "directory": "/Users/jcheung/Dev/work/level-9000/c-project/simple-game-c",
+  "arguments": [
+   "cc",
+   "-Iinclude",
+   "-I/usr/local/Cellar/raylib/3.0.0/include",
+   "-I/usr/local/include",
+   "-L/usr/local/lib -lcollectc",
+   "-L/usr/local/Cellar/raylib/3.0.0/lib -lraylib",
+   "-MMD",
+   "-MP",
+   "-Wall",
+   "-c",
+   "src/main.c",
+   "-o",
+   "obj/main.o"
+  ],
+  "file": "src/main.c"
+ }
+]
